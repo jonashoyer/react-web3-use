@@ -1,6 +1,6 @@
 
 
-export * from './context';
+export * from './useWeb3UseContext';
 export * from './abis';
 export * from './types';
 export * from './useContract';

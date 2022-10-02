@@ -1,4 +1,4 @@
-import { useWeb3UseContext } from "./context";
+import { useWeb3UseContext } from "./useWeb3UseContext";
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 
 export interface UseContractOptions {

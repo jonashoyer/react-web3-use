@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContract } from '../useContract';
-import { useWeb3UseContext } from '../context';
+import { useWeb3UseContext } from '../useWeb3UseContext';
 import { XOR } from '../types';
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 
