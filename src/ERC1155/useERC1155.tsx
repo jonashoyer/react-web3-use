@@ -32,7 +32,7 @@ export const useERC1155 = ({ tokenAddress, tokenContract, contractAddress, token
     }
   }, [refetchAllowance]);
 
-  const { approvalLoading, approvalRevokeLoading, requestApproval, requestApprovalRevoke } = useERC1155Approval({
+  const { approvalLoading, revocationLoading, requestApproval, requestRevocation } = useERC1155Approval({
     tokenContract: contract,
     contractAddress,
     onApproval: onApprovalChange(onApproval),
@@ -54,7 +54,7 @@ export const useERC1155 = ({ tokenAddress, tokenContract, contractAddress, token
     requestApproval,
     approvalLoading,
 
-    requestApprovalRevoke,
-    approvalRevokeLoading,
+    requestRevocation,
+    revocationLoading,
   }
 }

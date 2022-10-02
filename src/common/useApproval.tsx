@@ -35,7 +35,7 @@ export const useApproval = <AA extends unknown = false>({ tokenContract, tokenAd
   const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abi });
 
   const [approvalLoading, setApprovalLoading] = React.useState(false);
-  const [approvalRevokeLoading, setApprovalRevokeLoading] = React.useState(false);
+  const [revocationLoading, setRevocationLoading] = React.useState(false);
 
   const requestApproval = React.useCallback(async (_approvalAmount?: AA extends true ? BigNumber : void): Promise<TransactionReceipt> => {
     try {
@@ -54,10 +54,10 @@ export const useApproval = <AA extends unknown = false>({ tokenContract, tokenAd
     }
   }, [approvalAmount, approveFn, contract, contractAddress, latestOnApproval, tokenId]);
 
-  const requestApprovalRevoke = React.useCallback(async (): Promise<TransactionReceipt> => {
+  const requestRevocation = React.useCallback(async (): Promise<TransactionReceipt> => {
     try {
 
-      setApprovalRevokeLoading(true);
+      setRevocationLoading(true);
 
       const res = await revokeFn(contract, contractAddress, tokenId);
 
@@ -67,7 +67,7 @@ export const useApproval = <AA extends unknown = false>({ tokenContract, tokenAd
       return receipt;
 
     } finally {
-      setApprovalRevokeLoading(false);
+      setRevocationLoading(false);
     }
   }, [contract, contractAddress, latestOnRevocation, revokeFn, tokenId]);
 
@@ -77,7 +77,7 @@ export const useApproval = <AA extends unknown = false>({ tokenContract, tokenAd
     requestApproval,
     approvalLoading,
 
-    requestApprovalRevoke,
-    approvalRevokeLoading,
+    requestRevocation,
+    revocationLoading,
   }
 }

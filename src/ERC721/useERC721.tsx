@@ -31,7 +31,7 @@ export const useERC721 = ({ tokenAddress, tokenContract, contractAddress, approv
     }
   }, [refetchAllowance]);
 
-  const { approvalLoading, approvalRevokeLoading, requestApproval, requestApprovalRevoke } = useERC721Approval({
+  const { approvalLoading, requestRevocation, requestApproval, revocationLoading } = useERC721Approval({
     tokenContract: contract,
     contractAddress, approvalForAll,
     onApproval: onApprovalChange(onApproval),
@@ -53,7 +53,7 @@ export const useERC721 = ({ tokenAddress, tokenContract, contractAddress, approv
     requestApproval,
     approvalLoading,
 
-    requestApprovalRevoke,
-    approvalRevokeLoading,
+    requestRevocation,
+    revocationLoading,
   }
 }

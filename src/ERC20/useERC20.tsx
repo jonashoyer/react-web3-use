@@ -7,16 +7,17 @@ import { useERC20Approval } from './useERC20Approval';
 import { useERC20Balance } from './useERC20Balance';
 import { abiERC20 } from '../abis';
 import { TransactionReceipt } from '@ethersproject/providers';
+import { BigNumber } from '@ethersproject/bignumber';
 
 export type UseERC20Options = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   contractAddress: string;
-  approvalAmount?: number;
+  approvalAmount?: BigNumber;
 
   onApproval?: (receipt: TransactionReceipt) => void;
   onRevocation?: (receipt: TransactionReceipt) => void;
 }
 
-export const useERC20 = ({ tokenAddress, tokenContract, contractAddress, onApproval, onRevocation }: UseERC20Options) => {
+export const useERC20 = ({ tokenAddress, tokenContract, contractAddress, onApproval, onRevocation, approvalAmount }: UseERC20Options) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abiERC20 });
@@ -32,8 +33,9 @@ export const useERC20 = ({ tokenAddress, tokenContract, contractAddress, onAppro
     }
   }, [refetchAllowance]);
 
-  const { approvalLoading, approvalRevokeLoading, requestApproval, requestApprovalRevoke } = useERC20Approval({
+  const { approvalLoading, requestRevocation, requestApproval, revocationLoading } = useERC20Approval({
     tokenContract: contract,
+    approvalAmount,
     contractAddress,
     onApproval: onApprovalChange(onApproval),
     onRevocation: onApprovalChange(onRevocation),
@@ -53,7 +55,7 @@ export const useERC20 = ({ tokenAddress, tokenContract, contractAddress, onAppro
     requestApproval,
     approvalLoading,
 
-    requestApprovalRevoke,
-    approvalRevokeLoading,
+    requestRevocation,
+    revocationLoading,
   }
 }
