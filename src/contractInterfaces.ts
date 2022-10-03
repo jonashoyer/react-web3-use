@@ -1,5 +1,5 @@
 
-export const abiERC20 = [
+export const contractInterfaceERC20 = [
   "function totalSupply() external view returns (uint256)",
   "function balanceOf(address account) external view returns (uint256)",
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -12,7 +12,7 @@ export const abiERC20 = [
   "event Approval(address indexed owner, address indexed spender, uint256 value)"
 ]
 
-export const abiERC721 = [
+export const contractInterfaceERC721 = [
   "function balanceOf(address _owner) external view returns (uint256)",
   "function ownerOf(uint256 _tokenId) external view returns (address)",
   "function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable",
@@ -30,7 +30,7 @@ export const abiERC721 = [
   "event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved)"
 ]
 
-export const abiERC1155 = [
+export const contractInterfaceERC1155 = [
   "function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) external",
   "function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external",
   

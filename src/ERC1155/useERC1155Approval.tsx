@@ -1,7 +1,7 @@
 import { Contract } from '@ethersproject/contracts';
 import { XOR } from '../types';
 import { useApproval } from '../common/useApproval';
-import { abiERC1155 } from '../abis';
+import { contractInterfaceERC1155 } from '../contractInterfaces';
 import { TransactionReceipt } from '@ethersproject/providers';
 
 export type UseERC1155ApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
@@ -24,7 +24,7 @@ const revokeFn = (contract: Contract, contractAddress: string) => {
 export const useERC1155Approval = (options: UseERC1155ApprovalOptions) => {
   return useApproval({
     ...options,
-    abi: abiERC1155,
+    contractInterface: contractInterfaceERC1155,
     approveFn,
     revokeFn,
   });

@@ -2,7 +2,7 @@ import React from 'react';
 import { useContract } from '../useContract';
 import { XOR } from '../types';
 import { Contract } from '@ethersproject/contracts';
-import { abiERC20 } from '../abis';
+import { contractInterfaceERC20 } from '../contractInterfaces';
 import { useERC721Balance } from './useERC721Balance';
 import { useERC721Allowance } from './useERC721Allowance';
 import { useERC721Approval } from './useERC721Approval';
@@ -19,7 +19,7 @@ export type UseERC721Options = XOR<{ tokenAddress: string }, { tokenContract: Co
 export const useERC721 = ({ tokenAddress, tokenContract, contractAddress, approvalForAll, onApproval, onRevocation }: UseERC721Options) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abiERC20 });
+  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: contractInterfaceERC20 });
 
   const { balance, loading: loadingBalance, refetch: refetchBalance } = useERC721Balance({ tokenContract: contract });
   const { allowance, loading: loadingAllowance, refetch: refetchAllowance } = useERC721Allowance({ tokenContract: contract, contractAddress, approvalForAll });

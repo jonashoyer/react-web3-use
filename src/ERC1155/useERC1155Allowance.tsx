@@ -1,7 +1,7 @@
 import { XOR } from '../types';
 import { Contract } from '@ethersproject/contracts';
 import { useAllowance } from '../common/useAllowance';
-import { abiERC1155 } from '../abis';
+import { contractInterfaceERC1155 } from '../contractInterfaces';
 
 export type UseERC1155AllowanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   accountAddress?: string;
@@ -15,7 +15,7 @@ const allowanceFn = async (contract: Contract, account: string, contractAddress:
 export const useERC1155Allowance = (options: UseERC1155AllowanceOptions) => {
   return useAllowance<boolean>({
     ...options,
-    abi: abiERC1155,
+    contractInterface: contractInterfaceERC1155,
     allowanceFn,
   });
 }

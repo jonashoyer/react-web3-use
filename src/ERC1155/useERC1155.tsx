@@ -2,7 +2,7 @@ import React from 'react';
 import { useContract } from '../useContract';
 import { XOR } from '../types';
 import { Contract } from '@ethersproject/contracts';
-import { abiERC20 } from '../abis';
+import { contractInterfaceERC20 } from '../contractInterfaces';
 import { useERC1155Balance } from './useERC1155Balance';
 import { useERC1155Allowance } from './useERC1155Allowance';
 import { useERC1155Approval } from './useERC1155Approval';
@@ -20,7 +20,7 @@ export type UseERC1155Options = XOR<{ tokenAddress: string }, { tokenContract: C
 export const useERC1155 = ({ tokenAddress, tokenContract, contractAddress, tokenId, onApproval, onRevocation }: UseERC1155Options) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abiERC20 });
+  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: contractInterfaceERC20 });
 
   const { balance, loading: loadingBalance, refetch: refetchBalance } = useERC1155Balance({ tokenContract: contract, tokenId });
   const { allowance, loading: loadingAllowance, refetch: refetchAllowance } = useERC1155Allowance({ tokenContract: contract, contractAddress });

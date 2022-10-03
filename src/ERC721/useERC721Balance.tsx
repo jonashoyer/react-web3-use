@@ -1,7 +1,7 @@
 import { XOR } from '../types';
 import { Contract } from '@ethersproject/contracts';
 import { useBalance } from '../common/useBalance';
-import { abiERC721 } from '../abis';
+import { contractInterfaceERC721 } from '../contractInterfaces';
 
 export type UseERC721BalanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   accountAddress?: string;
@@ -14,7 +14,7 @@ const balanceFn = (contract: Contract, account: string) => {
 export const useERC721Balance = (options: UseERC721BalanceOptions) => {
   return useBalance({
     ...options,
-    abi: abiERC721,
+    contractInterface: contractInterfaceERC721,
     balanceFn,
   });
 }

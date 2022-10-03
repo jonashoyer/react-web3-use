@@ -7,18 +7,18 @@ import { BigNumber } from '@ethersproject/bignumber';
 
 export type UseBalanceOptions<TID = void> = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   
-  abi: ContractInterface;
+  contractInterface: ContractInterface;
   balanceFn: (contract: Contract, account: string, tokenId?: TID) => Promise<BigNumber>;
   
   accountAddress?: string;
 } & (TID extends void ? { tokenId?: never } : { tokenId: TID; });
 
-export const useBalance = <TID= void>({ tokenAddress, tokenContract, accountAddress, tokenId, abi, balanceFn }: UseBalanceOptions<TID>) => {
+export const useBalance = <TID= void>({ tokenAddress, tokenContract, accountAddress, tokenId, contractInterface, balanceFn }: UseBalanceOptions<TID>) => {
 
   const { signer } = useWeb3UseContext();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abi });
+  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface });
 
   const [balance, setBalance] = React.useState<BigNumber | null>(null);
   const [loading, setLoading] = React.useState(false);

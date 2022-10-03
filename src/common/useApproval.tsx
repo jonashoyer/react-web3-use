@@ -9,15 +9,12 @@ import { useLatest } from 'react-use';
 
 export type UseApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
 
-  abi: ContractInterface;
+  contractInterface: ContractInterface;
   approveFn: (contract: Contract, contractAddress: string, tokenId?: BigNumber, approvalAmount?: BigNumber) => Promise<TransactionResponse>;
   revokeFn: (contract: Contract, contractAddress: string, tokenId?: BigNumber) => Promise<TransactionResponse>;
 
   onApproval?: (receipt: TransactionReceipt) => void;
   onRevocation?: (receipt: TransactionReceipt) => void;
-
-  
-  accountAddress?: string;
   
   contractAddress: string;
 
@@ -26,13 +23,13 @@ export type UseApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-export const useApproval = <AA extends unknown = false>({ tokenContract, tokenAddress, contractAddress, tokenId, approvalAmount, abi, approveFn, revokeFn, onApproval, onRevocation }: UseApprovalOptions) => {
+export const useApproval = <AA extends unknown = false>({ tokenContract, tokenAddress, contractAddress, tokenId, approvalAmount, contractInterface, approveFn, revokeFn, onApproval, onRevocation }: UseApprovalOptions) => {
 
   const latestOnApproval = useLatest(onApproval);
   const latestOnRevocation = useLatest(onRevocation);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abi });
+  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface });
 
   const [approvalLoading, setApprovalLoading] = React.useState(false);
   const [revocationLoading, setRevocationLoading] = React.useState(false);

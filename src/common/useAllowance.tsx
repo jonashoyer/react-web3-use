@@ -6,19 +6,19 @@ import { Contract, ContractInterface } from '@ethersproject/contracts';
 
 export type UseAllowanceOptions<T> = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
 
-  abi: ContractInterface;
+  contractInterface: ContractInterface;
   allowanceFn: (contract: Contract, account: string, contractAddress: string) => Promise<T>;
 
   accountAddress?: string;
   contractAddress: string;
 }
 
-export const useAllowance = <T,>({ tokenAddress, tokenContract, contractAddress, accountAddress, abi, allowanceFn }: UseAllowanceOptions<T>) => {
+export const useAllowance = <T,>({ tokenAddress, tokenContract, contractAddress, accountAddress, contractInterface, allowanceFn }: UseAllowanceOptions<T>) => {
 
   const { signer } = useWeb3UseContext();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: abi });
+  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface });
 
   const [allowance, setAllowance] = React.useState<T | null>(null);
   const [loading, setAllowanceLoading] = React.useState(false);

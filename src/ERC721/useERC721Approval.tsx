@@ -3,7 +3,7 @@ import { Contract } from '@ethersproject/contracts';
 import { XOR } from '../types';
 import { useApproval } from '../common/useApproval';
 import { BigNumber } from '@ethersproject/bignumber';
-import { abiERC20 } from '../abis';
+import { contractInterfaceERC20 } from '../contractInterfaces';
 import { TransactionReceipt } from '@ethersproject/providers';
 
 export type UseERC721ApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & XOR<{ tokenId?: BigNumber }, { approvalForAll?: boolean }> & {
@@ -31,7 +31,7 @@ export const useERC721Approval = ({ approvalForAll, ...options }: UseERC721Appro
 
   return useApproval({
     ...options,
-    abi: abiERC20,
+    contractInterface: contractInterfaceERC20,
     approveFn: approveFn(approvalForAll),
     revokeFn: revokeFn(approvalForAll),
   });
