@@ -5,7 +5,9 @@ export type UseNativeBalanceOptions = {
   accountAddress?: string;
 }
 
-export const useNativeBalance = ({ accountAddress }: UseNativeBalanceOptions) => {
+export const useNativeBalance = (options?: UseNativeBalanceOptions) => {
+
+  const { accountAddress } = options ?? {};
 
   const { provider, signer } = useWeb3UseContext();
 
