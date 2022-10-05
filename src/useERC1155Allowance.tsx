@@ -1,12 +1,9 @@
-import { XOR } from '../types';
+import { XOR } from './types';
 import { Contract } from '@ethersproject/contracts';
-import { useAllowance } from '../common/useAllowance';
-import { contractInterfaceERC1155 } from '../contractInterfaces';
+import { CommonUseAllowanceOptions, useAllowance } from './useAllowance';
+import { contractInterfaceERC1155 } from './contractInterfaces';
 
-export type UseERC1155AllowanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
-  accountAddress?: string;
-  contractAddress: string;
-}
+export type UseERC1155AllowanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & CommonUseAllowanceOptions;
 
 const allowanceFn = async (contract: Contract, account: string, contractAddress: string) => {
   return contract.isApprovedForAll(contractAddress, true);

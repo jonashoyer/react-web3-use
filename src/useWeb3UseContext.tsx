@@ -5,19 +5,21 @@ export type Web3UseContextValue = {
   provider: Web3Provider | undefined;
   signer: JsonRpcSigner | undefined;
   network: Network | undefined;
+  unsupportedChain: boolean;
 }
 
 export const Web3UseContext = React.createContext<Web3UseContextValue>({
   provider: undefined,
   signer: undefined,
   network: undefined,
+  unsupportedChain: false,
 });
 
 export function useWeb3UseContext() {
   return React.useContext(Web3UseContext);
 }
 
-export const Web3UseContextProvider: React.FC<{ children: React.ReactNode, getProvider: () => Web3Provider | undefined }> = ({ children, getProvider }) => {
+export const Web3UseContextProvider: React.FC<{ children: React.ReactNode, getProvider: () => Web3Provider | undefined, supportedChainIds?: number[] }> = ({ children, getProvider, supportedChainIds }) => {
 
   const provider = getProvider();
 
@@ -45,6 +47,11 @@ export const Web3UseContextProvider: React.FC<{ children: React.ReactNode, getPr
     provider?.getNetwork().then(network => setNetwork(network));
   }, [provider]);
 
+  const unsupportedChain = React.useMemo(() => {
+    if (!supportedChainIds || !network) return false;
+    return supportedChainIds.includes(network.chainId);
+  }, [network, supportedChainIds]);
+
 
   return (
     <Web3UseContext.Provider
@@ -52,6 +59,7 @@ export const Web3UseContextProvider: React.FC<{ children: React.ReactNode, getPr
         signer,
         provider,
         network,
+        unsupportedChain,
       }}
     >
       {children}

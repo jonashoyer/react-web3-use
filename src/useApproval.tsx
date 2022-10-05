@@ -1,9 +1,9 @@
 import React from 'react';
-import { useContract } from '../useContract';
+import { useContract } from './useContract';
 import { MaxUint256 } from '@ethersproject/constants';
 import { TransactionReceipt, TransactionResponse } from '@ethersproject/providers';
 import { Contract, ContractInterface } from '@ethersproject/contracts';
-import { XOR } from '../types';
+import { XOR } from './types';
 import { BigNumber } from '@ethersproject/bignumber';
 import { useLatest } from 'react-use';
 

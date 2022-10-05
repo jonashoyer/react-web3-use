@@ -1,11 +1,9 @@
-import { XOR } from '../types';
+import { XOR } from './types';
 import { Contract } from '@ethersproject/contracts';
-import { useBalance } from '../common/useBalance';
-import { contractInterfaceERC20 } from '../contractInterfaces';
+import { CommonUseBalanceOptions, useBalance } from './useBalance';
+import { contractInterfaceERC20 } from './contractInterfaces';
 
-export type UseERC20BalanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
-  accountAddress?: string;
-};
+export type UseERC20BalanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & CommonUseBalanceOptions;
 
 const balanceFn = (contract: Contract, account: string) => {
   return contract.balanceOf(account);

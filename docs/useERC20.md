@@ -62,6 +62,8 @@ const {
     onApproval,
     onRevocation,
     approvalAmount,
+    disableRefetchOnNetworkChange,
+    skip,
   });
 ```
 - `balance: BigNumber | null` &mdash; the amount of ERC20 held by the active account as defined by the [`Web3UseContext`](./useWeb3UseContext.md)
@@ -80,3 +82,5 @@ const {
 - `onApproval?: (receipt: TransactionReceipt) => void` &mdash; called when approval is completed
 - `onRevocation?: (receipt: TransactionReceipt) => void` &mdash; called when revocation is completed
 - `approvalAmount?: BigNumber` &mdash; the approved amount, with MaxUint256 being used by default if unspecified
+- `disableRefetchOnNetworkChange?: boolean` &mdash; disable refetch if network changed in [`Web3UseContext`](./useWeb3UseContext.md)
+- `skip?: boolean` &mdash; when `true`, the data is not fetched

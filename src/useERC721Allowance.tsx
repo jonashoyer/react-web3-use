@@ -1,12 +1,9 @@
-import { XOR } from '../types';
+import { XOR } from './types';
 import { Contract } from '@ethersproject/contracts';
-import { useAllowance } from '../common/useAllowance';
-import { contractInterfaceERC721 } from '../contractInterfaces';
+import { CommonUseAllowanceOptions, useAllowance } from './useAllowance';
+import { contractInterfaceERC721 } from './contractInterfaces';
 
-export type UseERC721AllowanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
-  accountAddress?: string;
-  contractAddress: string;
-
+export type UseERC721AllowanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & CommonUseAllowanceOptions & {
   approvalForAll?: boolean;
 }
 

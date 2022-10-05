@@ -15,6 +15,12 @@
 <br />
 <br />
 
+A react hook collection of essential [ethers.js](https://docs.ethers.io/v5/) functionality
+
+- **Context**
+  - [`useWeb3UseContext`](./docs/useWeb3UseContext.md) &mdash; share the active account's provider, signer, and network information across hooks (required for the majority of hooks)
+- **Native**
+  - [`useNativeBalance`](`./docs/useNativeBalance.md`) &mdash; acquire the native balance for the active network for the active or specified account
 - **ERC20**
   - [`useERC20`](./docs/useERC20.md) &mdash; one hook that combines allowance, approval, and balance
   - [`useERC20Allowance`](./docs/useERC20Allowance.md) &mdash; acquire an ERC20 token allowance for the active or specified account

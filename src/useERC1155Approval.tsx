@@ -1,7 +1,7 @@
 import { Contract } from '@ethersproject/contracts';
-import { XOR } from '../types';
-import { useApproval } from '../common/useApproval';
-import { contractInterfaceERC1155 } from '../contractInterfaces';
+import { XOR } from './types';
+import { useApproval } from './useApproval';
+import { contractInterfaceERC1155 } from './contractInterfaces';
 import { TransactionReceipt } from '@ethersproject/providers';
 
 export type UseERC1155ApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {

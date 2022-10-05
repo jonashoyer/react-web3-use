@@ -1,11 +1,10 @@
-import { XOR } from '../types';
+import { XOR } from './types';
 import { Contract } from '@ethersproject/contracts';
-import { useBalance } from '../common/useBalance';
-import { contractInterfaceERC721 } from '../contractInterfaces';
+import { CommonUseBalanceOptions, useBalance } from './useBalance';
+import { contractInterfaceERC721 } from './contractInterfaces';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export type UseERC1155BalanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
-  accountAddress?: string;
+export type UseERC1155BalanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & CommonUseBalanceOptions & {
   tokenId: BigNumber;
 };
 
