@@ -39,7 +39,7 @@ const Demo = () => {
 
 
   return (
-    <Web3UseContextProvider getProvider={() => provider}>
+    <Web3UseContextProvider provider={provider}>
       <ComponentA />
     </Web3UseContextProvider>
   );
@@ -82,10 +82,21 @@ const Demo = () => {
     return new Web3Provider(window.ethereum);
   }, []);
 
+  const ethProvider = React.useMemo(() => {
+    return new InfuraProvider('homestead');
+  }, []);
+
+  const account = useAccountAddress({ provider });
 
   return (
-    <Web3UseContextProvider getProvider={() => provider}>
+    <Web3UseContextProvider provider={provider}>
+      {/* Using metamask selected network */}
       <ComponentA />
+
+      <Web3UseContextProvider provider={ethProvider} account={account}>
+        {/* Always using ethereum network */}
+        <ComponentA />
+      </Web3UseContextProvider>
     </Web3UseContextProvider>
   );
 };

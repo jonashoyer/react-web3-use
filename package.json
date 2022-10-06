@@ -5,8 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --target es5 --format esm,cjs --treeshake --splitting --dts",
-    "dev": "npm run build --watch"
+    "build": "tsup src/index.ts --format cjs --dts",
+    "dev": "npm run build -- --watch"
   },
   "repository": {
     "type": "git",

@@ -26,9 +26,10 @@ export const useBalance = <TID= void>({ tokenAddress, tokenContract, accountAddr
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface });
 
-  const { retry: refetch, value: balance, error, loading } = useWeb3AsyncRetry(async ({ signer }) => {
-    if (!signer && !accountAddress) return;
-    const account = accountAddress ?? (await signer!.getAddress());
+  const { retry: refetch, value: balance, error, loading } = useWeb3AsyncRetry(async ({ signer, account: ctxAccount }) => {
+    const accountParam = ctxAccount ?? accountAddress;
+    if (!signer && !accountParam) return;
+    const account = accountParam ?? (await signer!.getAddress());
     return balanceFn(contract, account, tokenId);
   },
     [accountAddress, balanceFn, contract, tokenId],

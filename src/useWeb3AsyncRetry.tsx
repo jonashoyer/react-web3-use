@@ -23,6 +23,7 @@ export const useWeb3AsyncRetry = <T,>(fn: (ctx: Web3UseContextValue) => Promise<
       skip,
       ctx.provider,
       ctx.signer,
+      ctx.account,
       ...(disableRefetchOnProviderChange ? [] : [ctx.provider]),
       ...(disableRefetchOnSignerChange ? [] : [ctx.signer]),
       ...(disableRefetchOnNetworkChange ? [] : [ctx.network]),

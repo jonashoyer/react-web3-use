@@ -22,9 +22,10 @@ export const useAllowance = <T,>({ tokenAddress, tokenContract, contractAddress,
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface });
 
-  const { retry: refetch, error, loading, value: allowance } = useWeb3AsyncRetry(async ({ signer }) => {
-    if (!signer && !accountAddress) return;
-    const account = accountAddress ?? (await signer!.getAddress());
+  const { retry: refetch, error, loading, value: allowance } = useWeb3AsyncRetry(async ({ signer, account: ctxAccount }) => {
+    const accountParam = ctxAccount ?? accountAddress;
+    if (!signer && !accountParam) return;
+    const account = accountParam ?? (await signer!.getAddress());
     return allowanceFn(contract, account, contractAddress);
   },
     [accountAddress, allowanceFn, contract, contractAddress],

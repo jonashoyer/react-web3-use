@@ -7,14 +7,15 @@ export const useNativeBalance = (options?: UseNativeBalanceOptions) => {
 
   const { accountAddress, ...rest } = options ?? {};
 
-  const { retry: refetch, value: balance, loading, error } = useWeb3AsyncRetry(async ({ provider, signer }) => {
-    if ((!accountAddress && !signer) || (!provider && accountAddress)) {
+  const { retry: refetch, value: balance, loading, error } = useWeb3AsyncRetry(async ({ provider, signer, account: ctxAccount }) => {
+    const accountParam = ctxAccount ?? accountAddress;
+    if ((!accountParam && !signer) || (!provider && accountParam)) {
       return undefined;
     }
 
 
-    if (accountAddress) {
-      return provider!.getBalance(accountAddress);
+    if (accountParam) {
+      return provider!.getBalance(accountParam);
     }
 
     return signer!.getBalance();
