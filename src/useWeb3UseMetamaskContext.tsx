@@ -1,8 +1,10 @@
 import React from 'react';
 import { Web3Provider, Network } from '@ethersproject/providers';
-import { Web3UseContextProvider, Web3UseContextValue } from './useWeb3UseContext';
+import { hexValue } from '@ethersproject/bytes';
+import { useWeb3UseContext, Web3UseContextProvider, Web3UseContextValue } from './useWeb3UseContext';
 import { useAsyncFn } from 'react-use';
 import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
+import { useProviderEventWrap, UseWeb3UseContextOptions } from './contextEventHooks';
 
 export interface WatchAsset {
   address: string;
@@ -11,10 +13,13 @@ export interface WatchAsset {
   image?: string;
 }
 
-export type Web3UseContextMetamaskValue = Omit<Web3UseContextValue, 'provider'> & {
+export type Web3UseMetamaskContextValue = Omit<Web3UseContextValue, 'provider'> & {
   provider: Web3Provider | undefined;
 
-  connect: AsyncFnReturn<(network: Network | number) => Promise<void>>;
+  connect: (network?: Network | number) => Promise<void>;
+  connectLoading?: boolean;
+  connectError?: Error;
+
   watchAsset: AsyncFnReturn<(asset: WatchAsset) => Promise<void>>;
 
   notInstalled: boolean;
@@ -23,34 +28,37 @@ export type Web3UseContextMetamaskValue = Omit<Web3UseContextValue, 'provider'> 
 const asyncInitial: AsyncFnReturn<() => Promise<void>> = [
   {
     loading: false,
-    error: undefined,
-    value: undefined,
   },
   () => Promise.resolve(),
 ];
 
-export const Web3UseMetamaskContext = React.createContext<Web3UseContextMetamaskValue>({
+export const Web3UseMetamaskContext = React.createContext<Web3UseMetamaskContextValue>({
   provider: undefined,
   account: undefined,
   signer: undefined,
   network: undefined,
   unsupportedChain: false,
 
-  connect: asyncInitial,
+  connect: asyncInitial[1],
+
   watchAsset: asyncInitial,
+  loading: false,
 
   notInstalled: false,
 });
 
 
-export function useWeb3UseContext() {
-  return React.useContext(Web3UseMetamaskContext);
+export function useWeb3UseMetamaskContext(options?: UseWeb3UseContextOptions) {
+  const ctx = React.useContext(Web3UseMetamaskContext);
+  useProviderEventWrap(ctx.provider, options);
+  return ctx;
 }
 
-export const Web3UseContextMetamaskProvider: React.FC<{ children: React.ReactNode, supportedChainIds?: number[] }> = ({ children, supportedChainIds }) => {
+export const Web3UseMetamaskContextProvider: React.FC<{ children: React.ReactNode, supportedChainIds?: number[] }> = ({ children, supportedChainIds }) => {
 
   const provider = React.useMemo(() => {
-    if (!(window as any).ethereum?.isMetaMask) return undefined
+    if (typeof window == 'undefined') return undefined;
+    if (!(window as any).ethereum?.isMetaMask) return undefined;
     return new Web3Provider((window as any).ethereum, 'any');
   }, [])
 
@@ -65,28 +73,29 @@ const InnerWeb3UseMetamaskContext: React.FC<{ children: React.ReactNode }> = ({ 
 
   const ctx = useWeb3UseContext();
 
-  const connect = useAsyncFn(async (network: Network | number) => {
-    if (!ctx.provider) {
+  const provider = ctx.provider as Web3Provider | undefined;
+
+  const [connectState, connect] = useAsyncFn(async (network?: Network | number) => {
+    if (!provider) {
       console.warn('Provider is not available, please make sure metamask is installed!');
       return;
     }
 
     try {
-      await ctx.provider.send('eth_requestAccounts', []);
+      await provider.send('eth_requestAccounts', []);
+      if (!network) return;
 
       const chainId = typeof network === 'number' ? network : network.chainId;
-
-      await ctx.provider.send('wallet_switchEthereumChain', [{ chainId }]);
+      await provider.send('wallet_switchEthereumChain', [{ chainId: hexValue(chainId) }]);
     } catch {
       
-      if (!network) return;
-      await ctx.provider.send('wallet_addEthereumChain', [network]);
-
+      if (!network || typeof network == 'number') return;
+      await provider.send('wallet_addEthereumChain', [parseNetwork(network)]);
     }
-  }, [ctx.provider]);
+  }, [provider]);
 
   const watchAsset = useAsyncFn(async ({ address, symbol, decimals = 18, image }: WatchAsset) => {
-    ctx.provider?.send?.('wallet_watchAsset', [{
+    provider?.send?.('wallet_watchAsset', [{
       type: 'ERC20',
       options: {
         address,
@@ -95,10 +104,11 @@ const InnerWeb3UseMetamaskContext: React.FC<{ children: React.ReactNode }> = ({ 
         image,
       }
     }]);
-  }, [ctx.provider]);
+  }, [provider]);
 
   const notInstalled = React.useMemo(() => {
-    return !(window as any).ethereum?.isMetaMask;
+    if (typeof window == 'undefined') return false;
+      return !(window as any).ethereum?.isMetaMask;
   }, []);
 
   return (
@@ -106,6 +116,10 @@ const InnerWeb3UseMetamaskContext: React.FC<{ children: React.ReactNode }> = ({ 
       value={{
         ...ctx,
         connect,
+        connectLoading: connectState.loading,
+        connectError: connectState.error,
+
+        provider,
         watchAsset,
         notInstalled,
       }}
@@ -114,3 +128,8 @@ const InnerWeb3UseMetamaskContext: React.FC<{ children: React.ReactNode }> = ({ 
     </Web3UseMetamaskContext.Provider>
   )
 }
+
+const parseNetwork = (network: Network) => ({
+  ...network,
+  chainId: hexValue(network.chainId),
+})

@@ -3,6 +3,7 @@ export * from './contractInterfaces';
 
 export * from './useContract';
 export * from './useWeb3UseContext';
+export * from './useWeb3UseMetamaskContext';
 
 export * from './useERC20';
 export * from './useERC20Allowance';

@@ -6,22 +6,12 @@ Context provider to share the provider and signer of the active account across h
 
 ```jsx
 import React from 'react';
-import { useContract } from 'web3-use';
-import { parseEther, formatEther } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
+import { Web3UseContextProvider, useWeb3UseContext } from 'web3-use';
 
 
 const ComponentA = () => {
 
-  const { provider, signer, network } = useWeb3UseContext();
-
-  const [address, setAddress] = React.useState<string | null>(null);
-  
-  React.useEffect(() => {
-    if (!signer) return;
-    signer.getAddress().then(address => setAddress(address));
-  }, [signer]);
-
+  const { account, provider, signer, network } = useWeb3UseContext();
 
   return (
     <div>
@@ -51,21 +41,12 @@ const Demo = () => {
 ### Multiple Context Providers
 ```jsx
 import React from 'react';
-import { useContract } from 'web3-use';
-import { parseEther, formatEther } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
+import { Web3UseContextProvider, useWeb3UseContext } from 'web3-use';
 
 
 const ComponentA = () => {
 
-  const { provider, signer, network } = useWeb3UseContext();
-
-  const [address, setAddress] = React.useState<string | null>(null);
-  
-  React.useEffect(() => {
-    if (!signer) return;
-    signer.getAddress().then(address => setAddress(address));
-  }, [signer]);
+  const { provider, account, signer, network } = useWeb3UseContext();
 
 
   return (
@@ -86,14 +67,12 @@ const Demo = () => {
     return new InfuraProvider('homestead');
   }, []);
 
-  const account = useAccountAddress({ provider });
-
   return (
     <Web3UseContextProvider provider={provider}>
-      {/* Using metamask selected network */}
+      {/* Using provider selected network */}
       <ComponentA />
 
-      <Web3UseContextProvider provider={ethProvider} account={account}>
+      <Web3UseContextProvider provider={ethProvider} account={() => useWeb3UseContext().account}>
         {/* Always using ethereum network */}
         <ComponentA />
       </Web3UseContextProvider>
