@@ -7,6 +7,7 @@ import { useWeb3AsyncRetry } from './useWeb3AsyncRetry';
 export interface CommonUseBalanceOptions {
   accountAddress?: string;
 
+  allowUnsupportedChain?: boolean;
   disableRefetchOnNetworkChange?: boolean;
   skip?: boolean;
 }

@@ -93,7 +93,7 @@ export const Web3UseContextProvider: React.FC<{ children: React.ReactNode, provi
 
   const unsupportedChain = React.useMemo(() => {
     if (!supportedChainIds || !network) return false;
-    return supportedChainIds.includes(network.chainId);
+    return !supportedChainIds.includes(network.chainId);
   }, [network, supportedChainIds]);
 
 

@@ -15,6 +15,7 @@ export type UseERC721Options = XOR<{ tokenAddress: string }, { tokenContract: Co
   onApproval?: (receipt: TransactionReceipt) => void;
   onRevocation?: (receipt: TransactionReceipt) => void;
 
+  allowUnsupportedChain?: boolean;
   disableRefetchOnNetworkChange?: boolean;
   skip?: boolean;
 }

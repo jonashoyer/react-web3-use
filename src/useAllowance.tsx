@@ -7,6 +7,7 @@ export interface CommonUseAllowanceOptions {
   accountAddress?: string;
   contractAddress: string;
 
+  allowUnsupportedChain?: boolean;
   disableRefetchOnNetworkChange?: boolean;
   skip?: boolean;
 }

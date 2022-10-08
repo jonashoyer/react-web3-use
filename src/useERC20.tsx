@@ -16,6 +16,7 @@ export type UseERC20Options = XOR<{ tokenAddress: string }, { tokenContract: Con
   onApproval?: (receipt: TransactionReceipt) => void;
   onRevocation?: (receipt: TransactionReceipt) => void;
 
+  allowUnsupportedChain?: boolean;
   disableRefetchOnNetworkChange?: boolean;
   skip?: boolean;
 }
