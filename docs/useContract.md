@@ -17,9 +17,9 @@ const Demo = () => {
 
 ## Reference
 
-```ts
+```jsx
 const contract = useContract({ address, contractInterface });
 ```
-- `contract: Contract` &mdash; [ethers contract](https://docs.ethers.io/v5/api/contract/contract/)
+- `contract: Contract` &mdash; [ethers contract](https://docs.ethers.io/v5/api/contract/contract/)<br><br>
 - `address: string` &mdash; address of contract
 - `contractInterface: ContractInterface` &mdash; [ethers ABI contract interface](https://docs.ethers.io/v5/api/utils/abi/interface/)

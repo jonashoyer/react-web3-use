@@ -45,7 +45,7 @@ const Demo = () => {
 
 ## Reference
 
-```ts
+```jsx
 const {
     balance,
     loadingBalance,
@@ -62,25 +62,25 @@ const {
     onApproval,
     onRevocation,
     approvalAmount,
+    allowUnsupportedChain,
     disableRefetchOnNetworkChange,
     skip,
   });
 ```
-- `balance: BigNumber | null` &mdash; the amount of ERC20 held by the active account as defined by the [`Web3UseContext`](./useWeb3UseContext.md)
+- `balance: BigNumber | undefined` &mdash; the amount of ERC20 held by the active account as defined by the [`Web3UseContext`](./useWeb3UseContext.md)
 - `loadingBalance: boolean` &mdash; whether balance is loading
-- `allowance: BigNumber | null` &mdash; the contract's allowance to spend on behalf of the active account
+- `allowance: BigNumber | undefined` &mdash; the contract's allowance to spend on behalf of the active account
 - `loadingAllowance: boolean` &mdash; whether allowance is loading
 - `requestApproval: (approvalAmount?: BigNumber) => Promise<TransactionReceipt>` &mdash; request that the allowance be set to `approvalAmount`, the amount specified when calling, or MaxUint256 by default
 - `approvalLoading: boolean` &mdash; whether approval is loading
 - `requestRevocation: () => Promise<TransactionReceipt>` &mdash; request to revoke the contract's approval
-- `revocationLoading: boolean` &mdash; whether revocation is loading
-<br />
-
-- `tokenAddress: boolean` &mdash; the addres of the ERC20 token
+- `revocationLoading: boolean` &mdash; whether revocation is loading<br><br>
+- `tokenAddress: string` &mdash; the address of the ERC20 token
 - `tokenContract: Contract` &mdash; an ERC20 token contract instance, either `tokenAddress` or `tokenContract`, must be specified
 - `contractAddress: string` &mdash; the ERC20 token contract spender
 - `onApproval?: (receipt: TransactionReceipt) => void` &mdash; called when approval is completed
 - `onRevocation?: (receipt: TransactionReceipt) => void` &mdash; called when revocation is completed
 - `approvalAmount?: BigNumber` &mdash; the approved amount, with MaxUint256 being used by default if unspecified
+- `allowUnsupportedChain?: boolean` &mdash; if `true`, even if the [`Web3UseContext`](./useWeb3UseContext.md) does not support the current chain, data will still be fetched
 - `disableRefetchOnNetworkChange?: boolean` &mdash; disable refetch if network changed in [`Web3UseContext`](./useWeb3UseContext.md)
 - `skip?: boolean` &mdash; when `true`, the data is not fetched

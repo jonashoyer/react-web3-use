@@ -11,10 +11,18 @@ import { Web3UseContextProvider, useWeb3UseContext } from 'web3-use';
 
 const ComponentA = () => {
 
-  const { account, provider, signer, network } = useWeb3UseContext();
+  const { account, provider, signer, network, loading } = useWeb3UseContext({
+    onAccountsChange(accounts) {
+      // ...
+    },
+    onNetworkChange(network, oldNetwork) {
+      // ...
+    },
+  });
 
   return (
     <div>
+      {loading && <p>Loading...</p>}
       <strong>Chain id</strong>: <span>{network ? network.chainId : '-'}</span>
       <strong>Address</strong>: <span>{address ? address : '-'}</span>
     </div>

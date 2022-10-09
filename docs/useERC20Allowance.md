@@ -23,7 +23,7 @@ const Demo = () => {
 
 ## Reference
 
-```ts
+```jsx
 const {
   contract,
   allowance,
@@ -34,18 +34,18 @@ const {
   tokenContract,
   contractAddress,
   accountAddress,
+  allowUnsupportedChain,
   disableRefetchOnNetworkChange,
   skip,
 });
 ```
 - `contract: Contract` &mdash; the ERC20 contract of the `contractAddress`
 - `loading: boolean` &mdash; whether allowance is loading
-- `refetch: () => void` &mdash; refetch allowance
-
-
-- `tokenAddress: boolean` &mdash; the addres of the ERC20 token
+- `refetch: () => void` &mdash; refetch allowance<br><br>
+- `tokenAddress: string` &mdash; the address of the ERC20 token
 - `tokenContract: Contract` &mdash; an ERC20 token contract instance, either `tokenAddress` or `tokenContract`, must be specified
-- `contractAddress: boolean` &mdash; the contract address of the ERC20 contract
+- `contractAddress: string` &mdash; the contract address of the ERC20 contract
 - `accountAddress?: string` &mdash; the account address of the allowance to fetch. Default to active account in [`Web3UseContext`](./useWeb3UseContext.md)
+- `allowUnsupportedChain?: boolean` &mdash; if `true`, even if the [`Web3UseContext`](./useWeb3UseContext.md) does not support the current chain, data will still be fetched
 - `disableRefetchOnNetworkChange?: boolean` &mdash; disable refetch if network changed in [`Web3UseContext`](./useWeb3UseContext.md)
 - `skip?: boolean` &mdash; when `true`, the data is not fetched

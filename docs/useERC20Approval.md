@@ -32,7 +32,7 @@ const Demo = () => {
 
 ## Reference
 
-```ts
+```jsx
 const {
   contract,
   requestApproval,
@@ -50,15 +50,13 @@ const {
 });
 ```
 - `contract: Contract` &mdash; the ERC20 contract of the `contractAddress`
-
 - `requestApproval: (approvalAmount?: BigNumber) => Promise<TransactionReceipt>` &mdash; request that the allowance be set to `approvalAmount`, the amount specified when calling, or MaxUint256 by default
 - `approvalLoading: boolean` &mdash; whether approval is loading
 - `requestRevocation: () => Promise<TransactionReceipt>` &mdash; request to revoke the contract's approval
-- `revocationLoading: boolean` &mdash; whether revocation is loading
-  
-- `tokenAddress: boolean` &mdash; the addres of the ERC20 token
+- `revocationLoading: boolean` &mdash; whether revocation is loading<br><br>
+- `tokenAddress: string` &mdash; the address of the ERC20 token
 - `tokenContract: Contract` &mdash; an ERC20 token contract instance, either `tokenAddress` or `tokenContract`, must be specified
-- `contractAddress: boolean` &mdash; the contract address of the ERC20 contract
+- `contractAddress: string` &mdash; the contract address of the ERC20 contract
 - `approvalAmount?: BigNumber` &mdash; the approved amount, with MaxUint256 being used by default if unspecified
 - `onApproval?: (receipt: TransactionReceipt) => void` &mdash; called when approval is completed
 - `onRevocation?: (receipt: TransactionReceipt) => void` &mdash; called when revocation is completed
