@@ -7,9 +7,12 @@ import { useERC721Balance } from './useERC721Balance';
 import { useERC721Allowance } from './useERC721Allowance';
 import { useERC721Approval } from './useERC721Approval';
 import { TransactionReceipt } from '@ethersproject/providers';
+import { BigNumber } from '@ethersproject/bignumber';
 
 export type UseERC721Options = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   contractAddress: string;
+  
+  tokenId?: BigNumber;
   approvalForAll?: boolean;
 
   onApproval?: (receipt: TransactionReceipt) => void;
@@ -20,13 +23,13 @@ export type UseERC721Options = XOR<{ tokenAddress: string }, { tokenContract: Co
   skip?: boolean;
 }
 
-export const useERC721 = ({ tokenAddress, tokenContract, contractAddress, approvalForAll, onApproval, onRevocation, ...options }: UseERC721Options) => {
+export const useERC721 = ({ tokenAddress, tokenContract, contractAddress, approvalForAll, onApproval, onRevocation, tokenId, ...options }: UseERC721Options) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface: contractInterfaceERC20 });
 
   const { balance, loading: loadingBalance, refetch: refetchBalance } = useERC721Balance({ tokenContract: contract, ...options });
-  const { allowance, loading: loadingAllowance, refetch: refetchAllowance } = useERC721Allowance({ tokenContract: contract, contractAddress, approvalForAll, ...options });
+  const { allowance, loading: loadingAllowance, refetch: refetchAllowance } = useERC721Allowance({ tokenContract: contract, contractAddress, approvalForAll, tokenId, ...options });
 
   const onApprovalChange = React.useCallback((fn?: (receipt: TransactionReceipt) => void) => {
     return (receipt: TransactionReceipt) => {
@@ -37,6 +40,7 @@ export const useERC721 = ({ tokenAddress, tokenContract, contractAddress, approv
 
   const { approvalLoading, requestRevocation, requestApproval, revocationLoading } = useERC721Approval({
     tokenContract: contract,
+    tokenId,
     contractAddress, approvalForAll,
     onApproval: onApprovalChange(onApproval),
     onRevocation: onApprovalChange(onRevocation),

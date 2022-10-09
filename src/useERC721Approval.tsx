@@ -6,9 +6,11 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { contractInterfaceERC20 } from './contractInterfaces';
 import { TransactionReceipt } from '@ethersproject/providers';
 
-export type UseERC721ApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & XOR<{ tokenId?: BigNumber }, { approvalForAll?: boolean }> & {
+export type UseERC721ApprovalOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   accountAddress?: string;
   
+  tokenId?: BigNumber;
+  approvalForAll?: boolean;
   contractAddress: string;
 
   onApproval?: (receipt: TransactionReceipt) => void;
