@@ -1,6 +1,6 @@
 {
-  "name": "web3-use",
-  "version": "1.0.0",
+  "name": "react-web3-use",
+  "version": "0.1.0",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonashoyer/web3-use.git"
+    "url": "git+https://github.com/jonashoyer/react-web3-use.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonashoyer/web3-use/issues"
+    "url": "https://github.com/jonashoyer/react-web3-use/issues"
   },
-  "homepage": "https://github.com/jonashoyer/web3-use#readme",
+  "homepage": "https://github.com/jonashoyer/react-web3-use#readme",
   "dependencies": {
     "@ethersproject/constants": "^5.7.0",
     "@ethersproject/contracts": "^5.7.0",
