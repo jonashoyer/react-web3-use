@@ -3,15 +3,15 @@ import { BaseProvider, Network } from "@ethersproject/providers";
 import { useLatest } from "react-use";
 
 
-export type AccountChangeFn = (accounts: string[]) => void;
+export type AccountsChangeFn = (accounts: string[]) => void;
 export type NetworkChangeFn = (network: Network, oldNetwork?: Network) => void;
 
 export interface UseWeb3UseContextOptions {
-  onAccountChange?: AccountChangeFn;
+  onAccountsChange?: AccountsChangeFn;
   onNetworkChange?: NetworkChangeFn;
 }
 
-export const createProviderEventHooks = ({ provider, onAccountChange, onNetworkChange }: { provider: BaseProvider, onAccountChange?: AccountChangeFn, onNetworkChange?: NetworkChangeFn }) => {
+export const createProviderEventHooks = ({ provider, onAccountChange, onNetworkChange }: { provider: BaseProvider, onAccountChange?: AccountsChangeFn, onNetworkChange?: NetworkChangeFn }) => {
 
   if (onNetworkChange) provider.on('network', onNetworkChange);
 
@@ -28,20 +28,20 @@ export const createProviderEventHooks = ({ provider, onAccountChange, onNetworkC
 
 export const useProviderEventWrap = (provider: BaseProvider | undefined, options?: UseWeb3UseContextOptions) => {
 
-  const { onAccountChange, onNetworkChange } = options ?? {};
+  const { onAccountsChange, onNetworkChange } = options ?? {};
   
-  const accountChangeFn = useLatest(onAccountChange);
+  const accountsChangeFn = useLatest(onAccountsChange);
   const networkChangeFn = useLatest(onNetworkChange);
   
-  const hasAccountChangeFn = !!onAccountChange;
+  const hasAccountsChangeFn = !!onAccountsChange;
   const hasNetworkChangeFn = !!onNetworkChange;
   
   
   React.useEffect(() => {
     if (!provider) return;
   
-    const unsubscribe = createProviderEventHooks({ provider, onAccountChange: accountChangeFn.current, onNetworkChange: networkChangeFn.current });
+    const unsubscribe = createProviderEventHooks({ provider, onAccountChange: accountsChangeFn.current, onNetworkChange: networkChangeFn.current });
     return unsubscribe;
   
-  }, [provider, networkChangeFn, accountChangeFn, hasAccountChangeFn, hasNetworkChangeFn]);
+  }, [provider, networkChangeFn, accountsChangeFn, hasAccountsChangeFn, hasNetworkChangeFn]);
 }
