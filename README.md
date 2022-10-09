@@ -4,7 +4,7 @@
     <br/>
     👍
     <br />
-    web3-use
+    react-web3-use
     <br />
     <br />
     <br />
