@@ -5,7 +5,7 @@ Retrieve the ERC20 token balance for the active or specified account.
 ## Usage
 
 ```jsx
-import { useERC20Balance } from 'web3-use';
+import { useERC20Balance } from 'react-web3-use';
 import { formatEther } from '@ethersproject/units';
 
 const Demo = () => {

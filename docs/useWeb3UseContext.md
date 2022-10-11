@@ -6,7 +6,7 @@ Context provider to share the provider and signer of the active account across h
 
 ```jsx
 import React from 'react';
-import { Web3UseContextProvider, useWeb3UseContext } from 'web3-use';
+import { Web3UseContextProvidreact-web3-useeb3UseContext } from 'web3-use';
 
 
 const ComponentA = () => {
@@ -51,7 +51,7 @@ const Demo = () => {
 import React from 'react';
 import { Web3UseContextProvider, useWeb3UseContext } from 'web3-use';
 
-
+react-web3-use
 const ComponentA = () => {
 
   const { provider, account, signer, network } = useWeb3UseContext();

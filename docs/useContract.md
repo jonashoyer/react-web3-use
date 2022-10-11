@@ -5,7 +5,7 @@ Create a instance of a [ethers contract](https://docs.ethers.io/v5/api/contract/
 ## Usage
 
 ```jsx
-import { useContract, contractInterfaceERC20 } from 'web3-use';
+import { useContract, contractInterfaceERC20 } from 'react-web3-use';
 
 const Demo = () => {
 

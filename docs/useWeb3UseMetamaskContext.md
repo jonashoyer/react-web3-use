@@ -6,12 +6,12 @@ Metamask integration wrapper for [`useWeb3UseContext`](./useWeb3UseContext.md)
 
 ```jsx
 import React from 'react';
-import { Web3UseContextProvider, useWeb3UseContext } from 'web3-use';
+import { Web3UseMetamaskContextProvider, useWeb3UseMetamaskContext } from 'web3-use';
 
 
 const ComponentA = () => {
 
-  const { connect, connectLoading, notInstalled, account } = useWeb3UseContext();
+  const { connect, connectLoading, notInstalled, account } = useWeb3UseMetamaskContext();
 
   return (
     <div>

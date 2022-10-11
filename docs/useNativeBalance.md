@@ -5,7 +5,7 @@ Retrieve the balance for the active or specified account.
 ## Usage
 
 ```jsx
-import { useNativeBalance } from 'web3-use';
+import { useNativeBalance } from 'react-web3-use';
 import { formatEther } from '@ethersproject/units';
 
 const Demo = () => {

@@ -5,7 +5,7 @@ Request approval and revocation of ERC20 token allowance. This uses the active a
 ## Usage
 
 ```jsx
-import { useERC20Allowance } from 'web3-use';
+import { useERC20Allowance } from 'react-web3-use';
 import { formatEther } from '@ethersproject/units';
 
 const Demo = () => {

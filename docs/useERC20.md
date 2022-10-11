@@ -5,7 +5,7 @@ This hook offers the features of the [`useERC20Allowance`](./useERC20Allowance.m
 ## Usage
 
 ```jsx
-import { useERC20 } from 'web3-use';
+import { useERC20 } from 'react-web3-use';
 import { parseEther, formatEther } from '@ethersproject/units';
 
 const Demo = () => {
