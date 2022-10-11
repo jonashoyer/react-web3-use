@@ -5,7 +5,10 @@
     "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "target": "ES6",
-    "jsx": "react-jsx",
+    "jsx": "react",
+    "outDir": "./dist/esm",
+    "sourceMap": false,
+    "importHelpers": true,
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -21,5 +24,6 @@
     "skipLibCheck": true,
     "strict": true
   },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
