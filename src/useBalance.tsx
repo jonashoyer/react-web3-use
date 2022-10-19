@@ -1,16 +1,21 @@
 import { useContract } from './useContract';
 import { XOR } from './types';
-import { Contract, ContractInterface } from '@ethersproject/contracts';
+import type { Contract, ContractInterface } from '@ethersproject/contracts';
 import { BigNumber } from '@ethersproject/bignumber';
 import { useWeb3AsyncRetry } from './useWeb3AsyncRetry';
+import type { BaseProvider, JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 
-export interface CommonUseBalanceOptions {
-  accountAddress?: string;
+export type CommonUseBalanceOptions = XOR<
+  { provider?: JsonRpcProvider | BaseProvider | JsonRpcSigner, accountAddress: string },
+  {
+    allowUnsupportedChain?: boolean;
+    disableRefetchOnNetworkChange?: boolean;
+  }>
+  & {
+    accountAddress?: string;
 
-  allowUnsupportedChain?: boolean;
-  disableRefetchOnNetworkChange?: boolean;
-  skip?: boolean;
-}
+    skip?: boolean;
+  }
 
 export type UseBalanceOptions<TID = void> = {
   
@@ -22,10 +27,10 @@ export type UseBalanceOptions<TID = void> = {
 & XOR<{ tokenAddress: string }, { tokenContract: Contract }>
 & CommonUseBalanceOptions;
 
-export const useBalance = <TID= void>({ tokenAddress, tokenContract, accountAddress, tokenId, contractInterface, balanceFn, ...rest }: UseBalanceOptions<TID>) => {
+export const useBalance = <TID= void>({ tokenAddress, tokenContract, accountAddress, tokenId, contractInterface, balanceFn, provider, ...rest }: UseBalanceOptions<TID>) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface });
+  const contract = tokenContract ?? useContract({ address: tokenAddress, contractInterface, provider });
 
   const { retry: refetch, value: balance, error, loading } = useWeb3AsyncRetry(async ({ signer, account: ctxAccount }) => {
     const accountParam = ctxAccount ?? accountAddress;
