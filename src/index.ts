@@ -1,6 +1,7 @@
 
 export * from './contractInterfaces';
 
+export * from './usePoll';
 export * from './useContract';
 export * from './useWeb3UseContext';
 export * from './useWeb3UseMetamaskContext';
