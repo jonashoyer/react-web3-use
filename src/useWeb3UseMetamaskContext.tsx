@@ -1,5 +1,5 @@
 import React from 'react';
-import { Web3Provider, Network } from '@ethersproject/providers';
+import { Web3Provider } from '@ethersproject/providers';
 import { hexValue } from '@ethersproject/bytes';
 import { useWeb3UseContext, Web3UseContextProvider, Web3UseContextValue } from './useWeb3UseContext';
 import { useAsyncFn } from 'react-use';
@@ -11,6 +11,19 @@ export interface WatchAsset {
   symbol: string;
   decimals?: number;
   image?: string;
+}
+
+export interface Network {
+  chainId: number | string;
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: 18;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[];
 }
 
 export type Web3UseMetamaskContextValue = Omit<Web3UseContextValue, 'provider'> & {
