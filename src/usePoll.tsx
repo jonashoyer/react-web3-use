@@ -65,6 +65,7 @@ export const usePoll = (option: UsePollOption): [() => void, boolean, () => void
   }, [initialDelay, retry]);
 
   const stopPoll = React.useCallback(() => {
+    setRunning(false);
     triesRef.current = -1;
   }, []);
 
