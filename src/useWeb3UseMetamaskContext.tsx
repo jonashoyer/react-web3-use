@@ -95,16 +95,19 @@ const InnerWeb3UseMetamaskContext: React.FC<{ children: React.ReactNode }> = ({ 
     }
 
     try {
-      await provider.send('eth_requestAccounts', []);
+      // await provider.send('wallet_requestPermissions', [{ eth_accounts: {} }]);
+      await provider.send('eth_requestAccounts', []); // BUG: https://github.com/MetaMask/metamask-extension/issues/10085
       if (!network) return;
 
-      const chainId = typeof network === 'number' ? network : network.chainId;
-      await provider.send('wallet_switchEthereumChain', [{ chainId: hexValue(chainId) }]);
-    } catch {
-      
-      if (!network || typeof network == 'number') return;
-      await provider.send('wallet_addEthereumChain', [parseNetwork(network)]);
-    }
+      try {
+
+        const chainId = typeof network === 'number' ? network : network.chainId;
+        await provider.send('wallet_switchEthereumChain', [{ chainId: hexValue(chainId) }]);
+      } catch {
+        if (!network || typeof network == 'number') return;
+        await provider.send('wallet_addEthereumChain', [parseNetwork(network)]);
+      }
+    } catch(err) { }
   }, [provider]);
 
   const watchAsset = useAsyncFn(async ({ address, symbol, decimals = 18, image }: WatchAsset) => {

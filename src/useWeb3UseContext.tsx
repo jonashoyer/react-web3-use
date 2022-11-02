@@ -80,7 +80,7 @@ export const Web3UseContextProvider: React.FC<{ children: React.ReactNode, provi
 
       const [network, accounts] = await Promise.all([
         provider.getNetwork(),
-        (provider as JsonRpcProvider).send?.('eth_requestAccounts', []).catch(() => ([])),
+        (provider as JsonRpcProvider).listAccounts(),
       ]);
       if (!isMounted() || callId !== lastCallId.current) return;
 
