@@ -2,7 +2,7 @@ import { XOR } from './types';
 import { Contract } from '@ethersproject/contracts';
 import { CommonUseAllowanceOptions, useAllowance } from './useAllowance';
 import { contractInterfaceERC20 } from './contractInterfaces';
-import { BigNumber } from '@ethersproject/bignumber';
+import type { BigNumber } from '@ethersproject/bignumber';
 
 export type UseERC20AllowanceOptions = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & CommonUseAllowanceOptions;
 

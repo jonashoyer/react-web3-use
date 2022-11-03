@@ -1,7 +1,7 @@
 import { useContract } from './useContract';
 import { XOR } from './types';
 import type { Contract, ContractInterface } from '@ethersproject/contracts';
-import { BigNumber } from '@ethersproject/bignumber';
+import type { BigNumber } from '@ethersproject/bignumber';
 import { useWeb3AsyncRetry } from './useWeb3AsyncRetry';
 import type { BaseProvider, JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 

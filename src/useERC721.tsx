@@ -7,7 +7,7 @@ import { useERC721Balance } from './useERC721Balance';
 import { useERC721Allowance } from './useERC721Allowance';
 import { useERC721Approval } from './useERC721Approval';
 import { TransactionReceipt } from '@ethersproject/providers';
-import { BigNumber } from '@ethersproject/bignumber';
+import type { BigNumber } from '@ethersproject/bignumber';
 
 export type UseERC721Options = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {
   contractAddress: string;

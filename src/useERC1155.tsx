@@ -6,7 +6,7 @@ import { contractInterfaceERC20 } from './contractInterfaces';
 import { useERC1155Balance } from './useERC1155Balance';
 import { useERC1155Allowance } from './useERC1155Allowance';
 import { useERC1155Approval } from './useERC1155Approval';
-import { BigNumber } from '@ethersproject/bignumber';
+import type { BigNumber } from '@ethersproject/bignumber';
 import { TransactionReceipt } from '@ethersproject/providers';
 
 export type UseERC1155Options = XOR<{ tokenAddress: string }, { tokenContract: Contract }> & {

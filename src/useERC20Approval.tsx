@@ -2,7 +2,7 @@ import { MaxUint256 } from '@ethersproject/constants';
 import { Contract } from '@ethersproject/contracts';
 import { XOR } from './types';
 import { useApproval } from './useApproval';
-import { BigNumber } from '@ethersproject/bignumber';
+import type { BigNumber } from '@ethersproject/bignumber';
 import { contractInterfaceERC20 } from './contractInterfaces';
 import { TransactionReceipt } from '@ethersproject/providers';
 
